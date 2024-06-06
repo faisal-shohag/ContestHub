@@ -1,29 +1,51 @@
-
-import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '@/providers/AuthProvider';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import SocialLogin from '@/components/app_compnents/Common/SocialLogin';
 
 const Login = () => {
-    const captchaRef = useRef()
-    const [disabled, setDisabled] = useState(true);
+  const captchaRef = useRef(null)
+  const { register, handleSubmit } = useForm()
+  const {signIn} = useContext(AuthContext)
+  const [matched, setMatched] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
-    const handleLogin = event => {
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password);
-        // form.reset();
+  const from = location.state?.from?.pathname || '/';
+ 
+    const onSubmit = data => {
+       if(!matched){
+        toast.error('Captcha does not matched!')
+        return;
+       }
+        console.log(data);
+        signIn(data.email, data.password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                toast.success('Successfully Logged In!')
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                console.log(error);
+                toast.error(error.message)
+            })
     }
 
+
     const handleValidateCaptcha = () => {
-        const user_captcha_value = captchaRef.current.value;
+        const user_captcha_value = captchaRef.current.value
         if (validateCaptcha(user_captcha_value)) {
-            setDisabled(false);
+            setMatched(true);
             console.log('Captcha Matched');
         }
         else {
             console.log('Captcha Does Not Matched');
-            setDisabled(true);
+            setMatched(false);
         }
     }
 
@@ -33,6 +55,9 @@ const Login = () => {
     }, [])
   return (
     <>
+    <Helmet>
+      <title>ContestHub | Login</title>
+    </Helmet>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
@@ -44,16 +69,17 @@ const Login = () => {
             </p>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handleLogin} className="card-body">
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
                 <input
                   type="email"
-                  placeholder="email"
+                  placeholder="Email"
                   name="email"
                   className="input input-bordered"
+                  {...register("email", { required: true })}
                   required
                 />
               </div>
@@ -63,9 +89,10 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
-                  placeholder="password"
+                  placeholder="Password"
                   name="password"
                   className="input input-bordered"
+                  {...register("password", { required: true })}
                   required
                 />
               </div>
@@ -75,19 +102,22 @@ const Login = () => {
                   <LoadCanvasTemplate />
                 </label>
                 <input
+                ref={captchaRef}
                   type="text"
-                  ref={captchaRef}
                   placeholder="Captcha"
                   name="captcha"
                   className="input input-bordered"
                   required
                 />
-                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-primary btn-xs mt-2">Verify</button>
+                {/* <button onClick={handleValidateCaptcha} className="btn btn-outline btn-primary btn-xs mt-2">Verify</button> */}
               </div>
-              <div className="form-control mt-6">
-                <button disabled={disabled} className="btn btn-primary">Login</button>
+              <div className="form-control mt-2">
+                <button onClick={handleValidateCaptcha} className="btn btn-primary">Login</button>
               </div>
+              <p className='text-center'>Don&apos;t have an account? <Link to='/register' className='text-orange-600'>Register</Link></p>
             </form>
+
+            <SocialLogin/>
           </div>
         </div>
       </div>
