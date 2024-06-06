@@ -27,6 +27,7 @@ import AddContest from "./routes/Creator/Dashboard/AddContest.jsx";
 import MyContest from "./routes/User/Dashboard/MyContest.jsx";
 import MyWinningContest from "./routes/User/Dashboard/MyWinningContest.jsx";
 import Profile from "./routes/User/Dashboard/Profile.jsx";
+import Dashboard from "./routes/Admin/Dashboard/Dashboard.jsx";
 
 const queryClient = new QueryClient()
 
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
     path: "admin-dashboard",
     element: <AdminDashboard/>,
     children: [
+      {
+        path: "",
+        element: <Dashboard/>
+      
+      },
       {
         path: "manage-user",
         element: <ManageUser/>

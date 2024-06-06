@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "@/providers/AuthProvider";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
@@ -14,6 +15,7 @@ import { LayoutDashboard, LogOutIcon } from "lucide-react";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   //TODO: role based navigation
   const role = "admin";
@@ -26,7 +28,7 @@ const NavBar = () => {
 
   const handleNavigation = () => {
     if (role === "admin") {
-      return <NavLink to="/admin-dashboard">Admin</NavLink>;
+      navigate("/admin-dashboard");
     }
   };
 
