@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Counter from "../Common/Counter";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const DashboardCard = ({ title, icon, num }) => {
@@ -13,7 +13,7 @@ const DashboardCard = ({ title, icon, num }) => {
         {icon}
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold"><Counter end={num}/></div>
+        <div className="text-2xl font-bold">{num}</div>
         <p className="text-xs text-muted-foreground">
           +20.1% from last month
         </p>
@@ -25,7 +25,7 @@ const DashboardCard = ({ title, icon, num }) => {
 DashboardCard.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
-  num: PropTypes.number.isRequired,
+  num: PropTypes.any.isRequired,
   percent: PropTypes.string.isRequired,
   arrow: PropTypes.string.isRequired,
   cardimg: PropTypes.string.isRequired,

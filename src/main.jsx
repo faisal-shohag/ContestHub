@@ -28,6 +28,8 @@ import MyContest from "./routes/User/Dashboard/MyContest.jsx";
 import MyWinningContest from "./routes/User/Dashboard/MyWinningContest.jsx";
 import Profile from "./routes/User/Dashboard/Profile.jsx";
 import Dashboard from "./routes/Admin/Dashboard/Dashboard.jsx";
+import CreatorDashboardHome from "./routes/Creator/Dashboard/Dashboard.jsx";
+import UserDashboardHome from "./routes/User/Dashboard/Dashboard.jsx";
 
 const queryClient = new QueryClient()
 
@@ -79,6 +81,11 @@ const router = createBrowserRouter([
     element:<CreatorDashboard/>,
     children: [
       {
+        path: "dashboard",
+        element: <CreatorDashboardHome/>
+      },
+      
+      {
         path: "created-contest",
         element: <MyCreatedContest/>
       }, 
@@ -96,6 +103,10 @@ const router = createBrowserRouter([
     path: "user-dahboard",
     element: <UserDashboard/>,
     children: [
+      {
+        path: "dashboard",
+        element: <UserDashboardHome/>
+      },
       {
         path: "my-contests",
         element: <MyContest/>
