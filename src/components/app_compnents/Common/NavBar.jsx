@@ -18,7 +18,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   //TODO: role based navigation
-  const role = "admin";
+  const role = "creator";
 
   const handleLogOut = () => {
     logOut()
@@ -30,6 +30,10 @@ const NavBar = () => {
     if (role === "admin") {
       navigate("/admin-dashboard/dashboard");
     }
+    if (role === "creator") {
+      navigate("/creator-dashboard/dashboard");
+    }
+
   };
 
   return (
