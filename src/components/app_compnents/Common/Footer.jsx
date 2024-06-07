@@ -8,10 +8,10 @@ const Footer = () => {
     <div className="w-full border p-10 rounded-lg mt-20">
       <div className="md:flex lg:flex  items-start">
         <div className="flex flex-col  items-center mb-5 md:border-r-[1px]  lg:border-r-[1px] lg:pr-10 min-w-[150px] font-philo">
-          <img className="h-[100px]" src="https://i.postimg.cc/0QQ96s9v/image.png" />
+          <img className="h-[100px]" src="https://i.postimg.cc/BbW5Mn5y/logo.png" />
           
-          <div className="font-black">Circle</div>
-          <div className="font-bold text-[12px] text-center">Stay in the circle but think out of the circle.</div>
+          <div className="font-black">ContestHUB</div>
+          <div className="font-bold text-[12px] text-center">Create, Participate & Win</div>
         </div>
       <div className="flex lg:flex flex-col lg:flex-row justify-between w-full lg:pl-10 md:pl-10 font-philo">
         <div className="grid md:grid-cols-3 md:gap-20 lg:gap-20 gap-5 place-content-center text-center md:text-left lg:text-left">
