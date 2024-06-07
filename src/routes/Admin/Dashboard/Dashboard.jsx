@@ -2,14 +2,16 @@ import Loading from "@/components/app_compnents/Common/Loding";
 import DashboardCard from "@/components/app_compnents/Dashboard/DashboardCard";
 import RecentSales from "@/components/app_compnents/Dashboard/RecentSales";
 import Transactions from "@/components/app_compnents/Dashboard/Transactions";
+import useContest from "@/hooks/useContest";
 import useUser from "@/hooks/useUser";
 import { DollarSign, LucideUsers2, Palette, Target } from "lucide-react";
 
 const Dashboard = () => {
-    const {users} = useUser()
+   const {users} = useUser()
    const _users = users.data
    const creators = _users?.filter((user) => user.role === "creator")
-    return (
+   const {contests} = useContest() 
+   return (
         <div>
         <div className="rounded-xl pb-4 relative bg-no-repeat bg-right bg-contain ">
        {
@@ -17,7 +19,7 @@ const Dashboard = () => {
         <DashboardCard title="Total users" percent="34%" icon={<LucideUsers2 className="h-4 w-4 text-muted-foreground" />} num={_users?.length} arrow="arrow_upward" cardimg="./card_graph.png"/>
         <DashboardCard title="Total Creators" percent="24%" icon={<Palette className="h-4 w-4 text-muted-foreground" />} num={creators.length} arrow="arrow_downward" cardimg="./card_down_graph.png"/>
 
-        <DashboardCard title="Total contests" percent="24%" icon={<Target className="h-4 w-4 text-muted-foreground" />} num={17} arrow="arrow_downward" cardimg="./card_down_graph.png"/>
+        <DashboardCard title="Total contests" percent="24%" icon={<Target className="h-4 w-4 text-muted-foreground" />} num={contests.data?.length} arrow="arrow_downward" cardimg="./card_down_graph.png"/>
 
         <DashboardCard title="Total Income" percent="24%" icon={<DollarSign className="h-4 w-4 text-muted-foreground" />} num={`$${10}`} arrow="arrow_downward" cardimg="./card_down_graph.png"/>
       </div> : <Loading/> 

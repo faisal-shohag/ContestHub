@@ -24,45 +24,31 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { dateFormate } from "@/lib/common";
-import {  Check, EditIcon, MoreHorizontal, Trash } from "lucide-react";
+import {  EditIcon, MoreHorizontal, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import Loading from "../Common/Loding";
-import useContest from "@/hooks/useContest";
 
-const ContestTable = () => {
+const CreatorContestTable = () => {
   const [contests, setContests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
   const axiosSecure = useAxiosSecure()
 
-  const {updateContest, refetch} = useContest()
-  
-
-
+  const {user} = useAuth()
 
   useEffect(() => {
-    const fetchContests = async (page) => {
-        try {
-          const response = await axiosSecure.get(`/all_contests`, {
-            params: { page: page }
-          });
-          setContests(response.data.data);
-          setTotalPages(response.data.totalPages);
-        } catch (error) {
-          console.error('Error fetching contests:', error);
-        }
-      };
-   fetchContests(currentPage);
-  }, [currentPage, axiosSecure]);
+    user && fetchContests(currentPage, user?.email);
+  }, [currentPage, user]);
 
-
-  const fetchContests2 = async (page) => {
+  const fetchContests = async (page,email) => {
     try {
-      const response = await axiosSecure.get(`/all_contests`, {
+      const response = await axiosSecure.get(`/my_contests/${email}`, {
         params: { page: page }
       });
       setContests(response.data.data);
@@ -76,21 +62,15 @@ const ContestTable = () => {
     setCurrentPage(newPage);
   };
 
-  const handleApprove = async (id) => {
-    console.log(id)
-    await updateContest({contestId: id, updateData:{status: "approved"}})
-    fetchContests2(currentPage);
-}
-
 
 
     return (
         <div className="p-4">
         <Card x-chunk="dashboard-06-chunk-0">
            <CardHeader>
-             <CardTitle>All Contests</CardTitle>
+             <CardTitle>My Contests</CardTitle>
              <CardDescription>
-               Manage all contests here.
+               Manage your contests here.
              </CardDescription>
            </CardHeader>
            <CardContent>
@@ -148,16 +128,13 @@ const ContestTable = () => {
                        <DropdownMenuContent align="end">
                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
                          <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><DropdownMenuItem>Edit</DropdownMenuItem></Link>
-                         <DropdownMenuItem onClick={() => handleApprove(contest._id)}>Approve</DropdownMenuItem>
                          <DropdownMenuItem>Delete</DropdownMenuItem>
-                         
                        </DropdownMenuContent>
                      </DropdownMenu>
                      </div>
                       <div className="hidden lg:block">
                         <div className="flex items-center gap-2">
                         <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><Button className=""><EditIcon className="mr-2 h-4 w-4" /> Edit</Button></Link>
-                        <Button onClick={() => handleApprove(contest._id)} variant="" className="bg-green-500"><Check className="mr-2 h-4 w-4" /> Approve</Button>
                         <Button variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
                         </div>
                       </div>
@@ -182,4 +159,4 @@ const ContestTable = () => {
     );
 };
 
-export default ContestTable;
+export default CreatorContestTable;

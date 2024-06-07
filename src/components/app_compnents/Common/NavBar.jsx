@@ -18,7 +18,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   //TODO: role based navigation
-  const role = "creator";
+  const role = "admin";
 
   const handleLogOut = () => {
     logOut()

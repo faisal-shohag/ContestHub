@@ -1,8 +1,9 @@
+import CreatorContestTable from "@/components/app_compnents/Dashboard/CreatorContestTable";
 
 const MyCreatedContest = () => {
     return (
         <div>
-            My Created Contest
+            <CreatorContestTable/>
         </div>
     );
 };

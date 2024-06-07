@@ -12,32 +12,54 @@ import {
   } from "@/components/ui/select"
   import DatePicker from "react-datepicker";
   import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import useAuth from "@/hooks/useAuth";
+import { useParams } from "react-router-dom";
+import useContest from "@/hooks/useContest";
 
-const AddContest = () => {
+
+const EditContest = () => {
     const [startDate, setStartDate] = useState(new Date());
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue, watch } = useForm()
+    const {getContestById} = useContest()
+
+   
+
+    const param = useParams()
+    
+
+    useEffect(()=> {
+        const getContests = async() => {
+            const contest = await getContestById(param.id)
+            setValue('name', contest.name)
+            setValue('image', contest.image)
+            setValue('description', contest.description)
+            setValue('price', contest.price)
+            setValue('price_money', contest.price_money)
+            setValue('type', contest.type)
+            setValue('instruction', contest.instruction)
+            setStartDate(new Date(contest.due))
+        }
+        getContests()
+    }, [param.id, setValue])
+
 
     const axiosSecure = useAxiosSecure()
-    const {user} = useAuth()
     
     const onSubmit = data => {
         data = {
             ...data,
             due: startDate,
             status: "pending",
-            creator_email: user.email,
         }
 
         toast.promise(
-            axiosSecure.post('/contests', data),
+            axiosSecure.put('/contests/'+param.id, data),
             {
-                loading: 'Creating...',
-                success: 'Contest created successfully',
+                loading: 'Updating...',
+                success: 'Contest updated successfully',
                 error: 'Something went wrong'
             }
         )
@@ -52,9 +74,9 @@ const AddContest = () => {
       <div className=" px-10 border-r">
         <div className="mt-3">
           <div className="">
-            <h1 className="text-3xl font-bold">Create Contest</h1>
+            <h1 className="text-3xl font-bold">Edit Contest</h1>
             <p className="text-balance text-muted-foreground">
-              Create contest and admin will approve this.
+              Edit contest here.
             </p>
           </div>
   
@@ -137,7 +159,7 @@ const AddContest = () => {
             <div>
             <div className="text-sm font-semibold">Contest type</div>
             
-            <Select onValueChange={(value) => setValue("type", value)}>
+            <Select onValueChange={(value) => setValue("type", value)} value={watch('type')}>
             <SelectTrigger className="">
                 <SelectValue placeholder="Contest Type" />
             </SelectTrigger>
@@ -161,7 +183,7 @@ const AddContest = () => {
 
            
             <Button type="submit" className="col-span-2">
-              Create
+              Update
             </Button>
           </form>
         </div>
@@ -181,4 +203,4 @@ const AddContest = () => {
     );
 };
 
-export default AddContest;
+export default EditContest;

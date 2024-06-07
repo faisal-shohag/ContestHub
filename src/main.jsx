@@ -30,6 +30,7 @@ import Profile from "./routes/User/Dashboard/Profile.jsx";
 import Dashboard from "./routes/Admin/Dashboard/Dashboard.jsx";
 import CreatorDashboardHome from "./routes/Creator/Dashboard/Dashboard.jsx";
 import UserDashboardHome from "./routes/User/Dashboard/Dashboard.jsx";
+import EditContest from "./routes/Creator/Dashboard/EditContest.jsx";
 
 const queryClient = new QueryClient()
 
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
       {
         path: "add-contest",
         element: <AddContest/>
+      },
+      {
+        path: "edit-contest/:id",
+        element: <EditContest/>
       }
     ]
   },

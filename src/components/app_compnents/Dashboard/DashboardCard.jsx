@@ -26,7 +26,6 @@ DashboardCard.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
   num: PropTypes.any.isRequired,
-  percent: PropTypes.string.isRequired,
   arrow: PropTypes.string.isRequired,
   cardimg: PropTypes.string.isRequired,
 };
