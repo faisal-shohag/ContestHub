@@ -9,13 +9,13 @@ function App() {
   const isHeaderFooter = location.pathname.includes('login') || location.pathname.includes('register')
   
   return (
-    <>
+    <div className='root'>
     {isHeaderFooter || <NavBar/>}
       <div>
         <Outlet/>
       </div>
       {isHeaderFooter || <Footer/>}
-    </>
+    </div>
   )
 }
 

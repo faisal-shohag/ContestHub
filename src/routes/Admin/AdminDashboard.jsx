@@ -1,17 +1,13 @@
-
 import {
   Home,
-  LineChart,
   LogOut,
   Menu,
-  Package,
   Package2,
-  Search,
-  ShoppingCart,
-  Users,
+  Target,
+  UserRoundCog,
 } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -28,7 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+// import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Link, NavLink, Outlet } from "react-router-dom"
 import { RxDashboard } from "react-icons/rx";
@@ -44,7 +40,7 @@ const AdminDashboard = () => {
       };
 
   return (
-    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+    <div className="grid  w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -56,43 +52,26 @@ const AdminDashboard = () => {
           <div className="flex-1 dashboard">
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
               <NavLink
-                to=""
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                to="dashboard"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
               >
                 <Home className="h-4 w-4" />
                 Dashboard
               </NavLink>
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+              <NavLink
+                to="manage-user"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
               >
-                <ShoppingCart className="h-4 w-4" />
-                Orders
-                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                  6
-                </Badge>
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                <UserRoundCog className="h-4 w-4" />
+                Manage User
+              </NavLink>
+              <NavLink
+                to="manage-contest"
+                className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all"
               >
-                <Package className="h-4 w-4" />
-                Products{" "}
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-              >
-                <Users className="h-4 w-4" />
-                Customers
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-              >
-                <LineChart className="h-4 w-4" />
-                Analytics
-              </Link>
+                <Target className="h-4 w-4" />
+                Manage Contests
+              </NavLink>
             </nav>
           </div>
           <div className="mt-auto p-4">
@@ -113,9 +92,10 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-          <Sheet>
+        {/* Sheet */}
+          <Sheet className="">
             <SheetTrigger asChild>
               <Button
                 variant="outline"
@@ -126,53 +106,36 @@ const AdminDashboard = () => {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col">
+            <SheetContent side="left" className="dashboard flex flex-col">
               <nav className="grid gap-2 text-lg font-medium">
                 <Link
-                  href="#"
+                  href=""
                   className="flex items-center gap-2 text-lg font-semibold"
                 >
                   <Package2 className="h-6 w-6" />
-                  <span className="sr-only">Acme Inc</span>
+                  <span className="">Admin Dashboard</span>
                 </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <Home className="h-5 w-5" />
-                  Dashboard
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  Orders
-                  <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                    6
-                  </Badge>
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <Package className="h-5 w-5" />
-                  Products
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <Users className="h-5 w-5" />
-                  Customers
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <LineChart className="h-5 w-5" />
-                  Analytics
-                </Link>
+                <NavLink
+                to="dashboard"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
+              >
+                <Home className="h-4 w-4" />
+                Dashboard
+              </NavLink>
+              <NavLink
+                to="manage-user"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
+              >
+                <UserRoundCog className="h-4 w-4" />
+                Manage User
+              </NavLink>
+              <NavLink
+                to="manage-contest"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all"
+              >
+                <Target className="h-4 w-4" />
+                Manage Contests
+              </NavLink>
               </nav>
               <div className="mt-auto">
                 <Card>
@@ -192,6 +155,7 @@ const AdminDashboard = () => {
               </div>
             </SheetContent>
           </Sheet>
+{/* 
           <div className="w-full flex-1">
             <form>
               <div className="relative">
@@ -203,16 +167,17 @@ const AdminDashboard = () => {
                 />
               </div>
             </form>
-          </div>
+          </div> */}
+          <div className="w-full flex-1"></div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
-                <img className="h-8 w-8" src={user.photoURL} alt="profile-pic"/>
+                <img className="h-8 w-8" src={user?.photoURL} alt="profile-pic"/>
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
+              <DropdownMenuLabel>{user?.displayName}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogOut}><LogOut className="mr-2" size={16}/> Logout</DropdownMenuItem>

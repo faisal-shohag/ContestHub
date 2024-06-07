@@ -1,8 +1,9 @@
+import UsersTable from "@/components/app_compnents/Dashboard/UsersTable";
 
 const ManageUser = () => {
     return (
         <div>
-            Manage User
+            <UsersTable/>
         </div>
     );
 };

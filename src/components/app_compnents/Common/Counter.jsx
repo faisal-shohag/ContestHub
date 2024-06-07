@@ -10,7 +10,7 @@ const Counter = ({ end }) => {
       const increment = (end - current) / 100;
       const interval = setInterval(() => {
         current += increment;
-        spanRef.current.innerText = `৳ ${Math.round(current).toLocaleString()}`;
+        spanRef.current.innerText = `${Math.round(current).toLocaleString()}`;
         if (current >= end) clearInterval(interval);
       }, 30);
     }

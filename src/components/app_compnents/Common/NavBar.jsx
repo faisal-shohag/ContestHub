@@ -28,7 +28,7 @@ const NavBar = () => {
 
   const handleNavigation = () => {
     if (role === "admin") {
-      navigate("/admin-dashboard");
+      navigate("/admin-dashboard/dashboard");
     }
   };
 

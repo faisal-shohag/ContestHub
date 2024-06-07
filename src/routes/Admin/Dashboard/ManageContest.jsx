@@ -1,8 +1,9 @@
+import ContestTable from "@/components/app_compnents/Dashboard/ContestTable";
 
 const ManageContest = () => {
     return (
         <div>
-            Manage Contests
+           <ContestTable/>
         </div>
     );
 };
