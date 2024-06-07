@@ -109,7 +109,7 @@ const Footer = () => {
       <hr  className="mt-7"/>
       <div className="text-sm text-center mt-5">
        
-        Circle &copy; 2024, All Rights Reserved
+        ContestHub &copy; 2024, All Rights Reserved
       </div>
     </div>
   );
