@@ -34,7 +34,7 @@ const NavBar = () => {
 
   return (
     <div className="border p-3 flex gap-5 rounded-xl justify-between items-center">
-      <div className="">Logo</div>
+      <div className=""><img className='h-8 w-8' src='https://i.postimg.cc/BbW5Mn5y/logo.png' alt='logo'/></div>
 
       <div className="flex items-center gap-5">
         <NavLink to="/">Home</NavLink>
