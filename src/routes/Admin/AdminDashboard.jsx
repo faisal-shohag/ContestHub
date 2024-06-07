@@ -27,8 +27,8 @@ import {
 // import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Link, NavLink, Outlet } from "react-router-dom"
-import { RxDashboard } from "react-icons/rx";
 import useAuth from "@/hooks/useAuth"
+import { ModeToggle } from "@/components/app_compnents/Theme/ToggleTheme"
 
 const AdminDashboard = () => {
     const {user, logOut } = useAuth()
@@ -44,9 +44,9 @@ const AdminDashboard = () => {
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-            <Link to="" className="flex items-center gap-2 font-semibold">
-              <RxDashboard className="h-6 w-6" />
-              <span className="">Admin Dashboard</span>
+            <Link to="/" className="flex items-center gap-2 font-semibold grayscale hover:grayscale-0">
+              <img className="h-6 w-6" src="https://i.postimg.cc/BbW5Mn5y/logo.png" alt="logo"/>
+              <span className="">ContestHUB</span>
             </Link>
           </div>
           <div className="flex-1 dashboard">
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
               </NavLink>
               <NavLink
                 to="manage-contest"
-                className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
               >
                 <Target className="h-4 w-4" />
                 Manage Contests
@@ -131,7 +131,7 @@ const AdminDashboard = () => {
               </NavLink>
               <NavLink
                 to="manage-contest"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
               >
                 <Target className="h-4 w-4" />
                 Manage Contests
@@ -155,19 +155,10 @@ const AdminDashboard = () => {
               </div>
             </SheetContent>
           </Sheet>
-{/* 
+
           <div className="w-full flex-1">
-            <form>
-              <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search products..."
-                  className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                />
-              </div>
-            </form>
-          </div> */}
+            <div className="font-bold">Admin Dashboard</div>
+          </div>
           <div className="w-full flex-1"></div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -183,6 +174,8 @@ const AdminDashboard = () => {
               <DropdownMenuItem onClick={handleLogOut}><LogOut className="mr-2" size={16}/> Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <ModeToggle/>
+
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           <Outlet/>
