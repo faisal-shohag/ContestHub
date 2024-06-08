@@ -2,11 +2,20 @@ import Loading from "@/components/app_compnents/Common/Loding";
 import ContestCard from "@/components/app_compnents/User/ContestCard";
 import useContest from "@/hooks/useContest";
 import { MoveLeft } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useEffect, useState } from "react";
+
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 
 const AllContest = () => {
   const { contests } = useContest();
   const _contests = contests.data;
+  const [data, setData] = useState(_contests);
+
+  useEffect(() => {
+    setData(_contests);
+  }, [_contests]);
 
   const tabs = [
     {
@@ -27,7 +36,7 @@ const AllContest = () => {
     },
     {
       tab: "adv",
-      title: "Advertisement",
+      title: "Digital Advertisement",
     },
     {
       tab: "game",
@@ -35,7 +44,7 @@ const AllContest = () => {
     },
     {
       tab: "business",
-      title: "Business Idea",
+      title: "Business Idea Concerts",
     },
     {
       tab: "movie",
@@ -48,35 +57,71 @@ const AllContest = () => {
   ];
 // #F1F5F9
 // #1E293B
+
+
+  const [tabIndex, setTabIndex] = useState(0)
+  const handleSelect = (index) => {
+    setTabIndex(index)
+
+    if(index == 0){
+         setData(_contests)
+         return
+    }
+
+    const tabData = _contests.filter((contest) => {
+        return contest.type === tabs[index].title;
+    });
+
+    setData(tabData)
+  
+  } 
+
   return (
-    <div className="section border shadow-xl mt-5 p-5 rounded-xl">
+    <div className="section border shadow-xl mt-5 p-5 rounded-xl min-h-[500px]">
       <div className="flex border p-3 rounded-xl w-[100px] items-center gap-2 font-bold text-green-600">
         <MoveLeft /> Back
       </div>
       <div className="mt-5 text-2xl font-black">All contests</div>
 
-      <div  className="bg-[#F1F5F9] p-2 rounded">
-        <div className="flex w-full flex-wrap gap-2">
-         {
-            tabs.map((tab, indx)=> <div className="hover:bg-white cursor-pointer rounded px-2 py-1 hover:shadow-sm" key={indx} value={tab.tab}>{tab.title}</div>)
-         }
-        </div>
+      <Tabs defaultIndex={tabIndex} onSelect={(index)=>handleSelect(index)}>
+    <TabList>
+      {tabs.map((tab, index) => (
+        <Tab key={index}>{tab.title}</Tab>
+      ))}
+    </TabList>
+
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+    <TabPanel>
+    </TabPanel>
+  </Tabs>
 
 
-        <div value="all">
-          Make changes to your account here.
-        </div>
-        <div value="password">Change your password here.</div>
-      </div>
 
-      <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-2 w-ful mt-3">
-        {_contests ? (
+      <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-2 w-ful mt-3 relative ">
+        {data ? 
           <>
-            {_contests.map((contest) => (
+          {data.length != 0 ? <>
+            {data.map((contest) => (
               <ContestCard key={contest._id} contest={contest} />
             ))}
+          </> : <div className="text-center text-2xl font-bold w-full absolute">No contest found in this category!</div>}
           </>
-        ) : (
+         : (
           <Loading />
         )}
       </div>

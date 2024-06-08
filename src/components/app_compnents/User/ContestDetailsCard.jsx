@@ -2,10 +2,10 @@ import { Button } from '@/components/ui/button';
 import { DollarSign, Gift, MoveRight, Users } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-const ContestCard = ({contest}) => {
+const ContestDetailsCard = ({contest}) => {
     const {_id, image, name, price, price_money, participationsCount, description} = contest
     return (
-        <div className='border p-2 rounded-xl max-w-[400px]'>
+        <div className='border p-2 shadow-2xl rounded-xl max-w-[400px]'>
             
             <div className='flex justify-center h-[180px] rounded-xl bg-cover bg-center bg-no-repeat' style={{backgroundImage: `url("${image}")`}}>
             </div>
@@ -24,13 +24,13 @@ const ContestCard = ({contest}) => {
               </div>
 
                 <div className='flex justify-center  mt-5'>
-                 <Link className='w-full' to={`/contest-details/${_id}`}><Button className='btn w-full'>View Details <MoveRight/></Button></Link>
+                 <Link className='w-full' to={`/contest-details/${_id}`}><Button className='btn w-full'> <MoveRight/></Button></Link>
                 </div>
             </div>
         </div>
     );
 };
-ContestCard.propTypes = {
+ContestDetailsCard.propTypes = {
     contest: PropTypes.object
 };
-export default ContestCard;
+export default ContestDetailsCard;
