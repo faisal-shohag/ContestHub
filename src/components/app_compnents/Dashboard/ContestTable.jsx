@@ -39,7 +39,7 @@ const ContestTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const axiosSecure = useAxiosSecure()
 
-  const {updateContest, refetch} = useContest()
+  const {updateContest} = useContest()
   
 
 
