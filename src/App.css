@@ -1,4 +1,4 @@
-.root {
+.section {
   max-width: 1280px;
   margin: 0 auto;
   /* padding: 2rem; */
@@ -8,9 +8,28 @@
 
 #root{
   min-height: 100vh;
+  font-family: "K2D", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
+}
+
+.font-poppins{
+  font-family: "Poppins", sans-serif;
+}
+
+.font-k{
+  font-family: "K2D", sans-serif;
 }
 
 .dashboard .active{
   background-color: black;
   color: white;
+}
+
+
+.text-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
