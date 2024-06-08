@@ -52,7 +52,6 @@ const EditContest = () => {
         data = {
             ...data,
             due: startDate,
-            status: "pending",
         }
 
         toast.promise(

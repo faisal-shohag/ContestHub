@@ -3,7 +3,7 @@ import { DollarSign, Gift, MoveRight, Users } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 const ContestCard = ({contest}) => {
-    const {_id, image, name, price, price_money, participationsCount, description} = contest
+    const {_id, image, name, price, due, price_money, participationsCount, description} = contest
     return (
         <div className='border p-2 rounded-xl max-w-[400px]'>
             
@@ -24,7 +24,7 @@ const ContestCard = ({contest}) => {
               </div>
 
                 <div className='flex justify-center  mt-5'>
-                 <Link className='w-full' to={`/contest-details/${_id}`}><Button className='btn w-full'>View Details <MoveRight/></Button></Link>
+                 <Link className='w-full' to={`/contest-details/${_id}/${due}`}><Button className='btn w-full'>View Details <MoveRight/></Button></Link>
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@ const ContestDetailsCard = ({contest}) => {
               </div>
 
                 <div className='flex justify-center  mt-5'>
-                 <Link className='w-full' to={`/contest-details/${_id}`}><Button className='btn w-full'> <MoveRight/></Button></Link>
+                 <Link className='w-full' to={`/payment/${_id}`}><Button className='btn w-full'> <MoveRight/></Button></Link>
                 </div>
             </div>
         </div>

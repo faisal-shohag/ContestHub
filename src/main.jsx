@@ -32,6 +32,7 @@ import CreatorDashboardHome from "./routes/Creator/Dashboard/Dashboard.jsx";
 import UserDashboardHome from "./routes/User/Dashboard/Dashboard.jsx";
 import EditContest from "./routes/Creator/Dashboard/EditContest.jsx";
 import ContestDetails from "./routes/User/ContestDetails.jsx";
+import Payment from "./routes/User/Payment.jsx";
 
 const queryClient = new QueryClient()
 
@@ -58,8 +59,12 @@ const router = createBrowserRouter([
       
       },
       {
-        path: "contest-details/:id",
+        path: "contest-details/:id/:time",
         element: <PrivateRoute><ContestDetails/></PrivateRoute>,
+      },
+      {
+        path: "payment/:id",
+        element: <PrivateRoute><Payment/></PrivateRoute>,
       }
     ],
   },
