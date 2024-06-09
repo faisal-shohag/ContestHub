@@ -30,7 +30,11 @@ const Banner = () => {
       
     return (
         <div className="w-full flex justify-center items-center mt-5 rounded-xl bg-gray-200 h-[300px]">
-            <form  tabIndex={-1} onBlur = {() =>{ setShow(false); setIsData(false)}} onSubmit={handleSearch} className="">
+            <form  tabIndex={-1} onBlur = {() =>{ 
+              setTimeout(()=> {
+                setShow(false); setIsData(false)
+              }, 100)
+            }} onSubmit={handleSearch} className="">
             <div className="relative">
               <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
               <Input

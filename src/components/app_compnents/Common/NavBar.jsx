@@ -12,13 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LayoutDashboard, LogOutIcon } from "lucide-react";
+import useAxiosSecure from '@/hooks/useAxiosSecure';
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  //TODO: role based navigation
-  const role = "creator";
+
 
   const handleLogOut = () => {
     logOut()
@@ -26,13 +26,21 @@ const NavBar = () => {
       .catch((error) => console.log(error));
   };
 
+  const axiosSecure = useAxiosSecure()
+
   const handleNavigation = () => {
-    if (role === "admin") {
-      navigate("/admin-dashboard/dashboard");
-    }
-    if (role === "creator") {
-      navigate("/creator-dashboard/dashboard");
-    }
+    axiosSecure.get('/user/' + user.email)
+    .then(res => {
+      navigate(`/${res.data.data.role}-dashboard/dashboard`);
+    }) 
+
+    // if (role === "admin") {
+    //   navigate("/admin-dashboard/dashboard");
+    // }
+    // if (role === "creator") {
+    //   navigate("/creator-dashboard/dashboard");
+    // } 
+
 
   };
 

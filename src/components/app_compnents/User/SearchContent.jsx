@@ -1,9 +1,10 @@
 import { Users } from "lucide-react";
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 const SearchContent = ({contest}) => {
-    const {image, name, price, price_money, participationsCount} = contest
+    const {_id, due, image, name, price, price_money, participationsCount} = contest
     return (
-        <div className=" cursor-pointer flex justify-between items-center  px-1 py-1 gap-2 border mt-2 rounded-xl">
+       <Link to={`/contest-details/${_id}/${due}`}> <div className=" cursor-pointer flex justify-between items-center  px-1 py-1 gap-2 border mt-2 rounded-xl">
            <div className="flex items-center gap-2">
            
             <div>
@@ -22,7 +23,7 @@ const SearchContent = ({contest}) => {
                 <div className="bg-black absolute right-[1px] bottom-0 text-white text-xs  px-2 rounded-xl">${price_money}</div>
             <img className="h-10 w-10 rounded-xl" src="https://i.postimg.cc/8CbHFRM5/image.png" alt="image" /> 
             </div>
-        </div>
+        </div></Link>
     );
 };
 

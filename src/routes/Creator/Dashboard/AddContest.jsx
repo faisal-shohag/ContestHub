@@ -32,6 +32,8 @@ const AddContest = () => {
             status: "pending",
             creator_email: user.email,
             isDecided: false,
+            price: parseInt(data.price),
+            price_money: parseInt(data.price_money),
         }
 
         toast.promise(

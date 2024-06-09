@@ -115,7 +115,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "user-dahboard",
+    path: "user-dashboard",
     element: <UserDashboard/>,
     children: [
       {
