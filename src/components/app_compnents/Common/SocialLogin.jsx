@@ -15,7 +15,6 @@ const SocialLogin = () => {
     toast.promise(
       googleSignIn()
         .then((result) => {
-          console.log(result.user);
           axiosPublic
             .post("/user", {
               email: result.user.email,
@@ -41,7 +40,6 @@ const SocialLogin = () => {
     toast.promise(
         githubSignIn()
           .then((result) => {
-            console.log(result.user);
             axiosPublic
               .post("/user", {
                 email: result.user.email,

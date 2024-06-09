@@ -31,6 +31,7 @@ const AddContest = () => {
             due: startDate,
             status: "pending",
             creator_email: user.email,
+            isDecided: false,
         }
 
         toast.promise(
