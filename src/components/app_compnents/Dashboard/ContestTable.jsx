@@ -26,20 +26,28 @@ import {
   } from "@/components/ui/table"
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { dateFormate } from "@/lib/common";
-import {  Check, EditIcon, MoreHorizontal, Trash } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {  Check, MessageSquareMore, MoreHorizontal, Trash } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import Pagination from "./Pagination";
 import Loading from "../Common/Loding";
 import useContest from "@/hooks/useContest";
+import { Description, Dialog, DialogPanel, DialogTitle,  } from '@headlessui/react'
+import { Textarea } from "@/components/ui/textarea";
+import toast from "react-hot-toast";
 
 const ContestTable = () => {
   const [contests, setContests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [contestId, setId] = useState(null)
   const axiosSecure = useAxiosSecure()
 
+
+  const commentRef = useRef()
+
   const {updateContest} = useContest()
+
+  let [isOpen, setIsOpen] = useState(false)
   
 
 
@@ -76,11 +84,31 @@ const ContestTable = () => {
     setCurrentPage(newPage);
   };
 
-  const handleApprove = async (id) => {
+  const handleApprove = async (id, status) => {
     console.log(id)
-    await updateContest({contestId: id, updateData:{status: "approved"}})
+    await updateContest({contestId: id, updateData:{status: status}})
     fetchContests2(currentPage);
 }
+
+ 
+const handleComment = () => {
+  console.log(commentRef.current.value)
+
+  toast.promise(
+    axiosSecure.post('/add-comment/'+contestId, {
+      comment: commentRef.current.value
+    }),
+    {
+      loading: 'Adding comment...',
+      success: 'Comment added successfully!',
+      error: 'Error adding comment',
+    }
+  )
+
+  setIsOpen(false)
+}
+
+
 
 
 
@@ -147,8 +175,9 @@ const ContestTable = () => {
                        </DropdownMenuTrigger>
                        <DropdownMenuContent align="end">
                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                         <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><DropdownMenuItem>Edit</DropdownMenuItem></Link>
-                         <DropdownMenuItem onClick={() => handleApprove(contest._id)}>Approve</DropdownMenuItem>
+                         
+                         <DropdownMenuItem onClick={() =>{ setIsOpen(true); setId(contest._id)}}>Comment</DropdownMenuItem>
+                         <DropdownMenuItem onClick={() => handleApprove(contest._id, 'approved')}>{contest.status == 'approved' ? "Decline" : "Confirm"}</DropdownMenuItem>
                          <DropdownMenuItem>Delete</DropdownMenuItem>
                          
                        </DropdownMenuContent>
@@ -156,8 +185,8 @@ const ContestTable = () => {
                      </div>
                       <div className="hidden lg:block">
                         <div className="flex items-center gap-2">
-                        <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><Button className=""><EditIcon className="mr-2 h-4 w-4" /> Edit</Button></Link>
-                        <Button onClick={() => handleApprove(contest._id)} variant="" className="bg-green-500"><Check className="mr-2 h-4 w-4" /> Approve</Button>
+                        <Button onClick={() =>{ setIsOpen(true); setId(contest._id)}} className=""><MessageSquareMore className="mr-2 h-4 w-4" /> Comment</Button>
+                        <Button onClick={() => handleApprove(contest._id, contest.status == 'approved' ? "pending" : "approved")} variant="" className="bg-green-500"><Check className="mr-2 h-4 w-4" />{contest.status == 'approved' ? "Decline" : "Confirm"}</Button>
                         <Button variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
                         </div>
                       </div>
@@ -178,6 +207,25 @@ const ContestTable = () => {
              
            </CardFooter>
          </Card>
+
+
+         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+        <div className="fixed  inset-0 flex w-screen items-center justify-center p-4">
+          <DialogPanel className="max-w-lg rounded-md shadow-2xl space-y-4 border bg-white p-8 dark:bg-gray-900 min-w-[500px]">
+            <DialogTitle className="font-bold">Comment</DialogTitle>
+            <Description></Description>
+              <Textarea
+              type="text"
+              placeholder="Comment"
+              ref={commentRef}
+              />
+            <div className="flex gap-4">
+              <Button variant="destructive" onClick={() => setIsOpen(false)}>Cancel</Button>
+              <Button onClick={handleComment}>Submit</Button>
+            </div>
+          </DialogPanel>
+        </div>
+      </Dialog>
    </div>
     );
 };

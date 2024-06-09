@@ -14,6 +14,7 @@ const useContest = () => {
             return res.data;
         }
     });
+    
 
      // Fetch contest by ID
      const getContestById = async (contestId) => {

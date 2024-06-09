@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import toast from "react-hot-toast";
@@ -63,13 +64,18 @@ const SocialLogin = () => {
 
   return (
     <div>
+      <div className="flex items-center gap-2 mb-4">
+        <div className="w-1/2 h-[2px] bg-gray-500"></div>
+        <div className="">or</div>
+        <div className="w-1/2 h-[2px] bg-gray-500"></div>
+      </div>
       <div className="flex flex-col mx-5 justify-center gap-3 mb-10">
-        <button onClick={handleGoogleSignIn} className="btn">
-          <FaGoogle /> Google Sign In
-        </button>
-        <button onClick={handleGithubSignIn} className="btn">
-          <FaGithub /> Github Sign In
-        </button>
+        <Button variant="outline" onClick={handleGoogleSignIn} className="btn">
+          <FaGoogle /> Google SignIn
+        </Button>
+        <Button variant="outline" onClick={handleGithubSignIn} className="btn">
+          <FaGithub /> Github SignIn
+        </Button>
       </div>
     </div>
   );

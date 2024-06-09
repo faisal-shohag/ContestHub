@@ -27,7 +27,7 @@ import {
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { dateFormate } from "@/lib/common";
-import {  EditIcon, MoreHorizontal, Trash } from "lucide-react";
+import {  EditIcon, List, MoreHorizontal, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
@@ -85,6 +85,11 @@ const CreatorContestTable = () => {
                    <TableHead className="hidden md:table-cell">
                     Deadline
                    </TableHead>
+
+                   <TableHead className="hidden md:table-cell">
+                    Comment
+                   </TableHead>
+
                    <TableHead>
                      <span className="">Actions</span>
                    </TableHead>
@@ -112,6 +117,9 @@ const CreatorContestTable = () => {
                    <TableCell className="hidden md:table-cell">
                      {dateFormate(contest.due)}
                    </TableCell>
+                   <TableCell className="hidden md:table-cell">
+                     {contest.comment ? contest.comment : "No comment!"}
+                   </TableCell>
                    <TableCell>
                      <div className="block lg:hidden">
                      <DropdownMenu>
@@ -127,15 +135,26 @@ const CreatorContestTable = () => {
                        </DropdownMenuTrigger>
                        <DropdownMenuContent align="end">
                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                         <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><DropdownMenuItem>Edit</DropdownMenuItem></Link>
-                         <DropdownMenuItem>Delete</DropdownMenuItem>
+                        {
+                          contest.status === "pending" ?
+                          <> <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><DropdownMenuItem>Edit</DropdownMenuItem></Link>
+                         <DropdownMenuItem>Delete</DropdownMenuItem></> :
+                          <><DropdownMenuItem disabled>Edit</DropdownMenuItem>
+                          <DropdownMenuItem disabled>Delete</DropdownMenuItem></>
+                        }
                        </DropdownMenuContent>
                      </DropdownMenu>
                      </div>
                       <div className="hidden lg:block">
                         <div className="flex items-center gap-2">
+                        {contest.status === "pending" ? <>
                         <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><Button className=""><EditIcon className="mr-2 h-4 w-4" /> Edit</Button></Link>
                         <Button variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
+                        </>: <>
+                        <Button disabled><EditIcon className="mr-2 h-4 w-4" /> Edit</Button>
+                        <Button disabled variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
+                        </> }
+                        <Button className="bg-green-600"><List className="mr-2 h-4 w-4" /> Submissions</Button>
                         </div>
                       </div>
                    </TableCell>

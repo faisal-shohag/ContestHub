@@ -2,14 +2,14 @@ import Loading from "@/components/app_compnents/Common/Loding";
 import DashboardCard from "@/components/app_compnents/Dashboard/DashboardCard";
 import RecentSales from "@/components/app_compnents/Dashboard/RecentSales";
 import Transactions from "@/components/app_compnents/Dashboard/Transactions";
+import useAllContest from "@/hooks/useAllContest";
 import useAuth from "@/hooks/useAuth";
-import useContest from "@/hooks/useContest";
 import { CheckCircle, DollarSign, Hourglass, Target } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
    const {user} = useAuth()
-   const {contests} = useContest()
+   const {contests} = useAllContest()
    const [_contests, setContests] = useState() 
    const [completed, setCompleted] = useState()
    const [pending, setPending] = useState() 

@@ -1,4 +1,6 @@
 
+import SocialLogin from '@/components/app_compnents/Common/SocialLogin';
+import { Input } from '@/components/ui/input';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import { AuthContext } from '@/providers/AuthProvider';
 import { useContext} from 'react';
@@ -59,23 +61,25 @@ const Registration = () => {
     <Helmet>
       <title>ContestHub | Registration</title>
     </Helmet>
-      <div className="hero min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Register now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+    
+    
+
+      <div className="w-full lg:grid lg:min-h-[600px]  lg:grid-cols-2 xl:min-h-[800px]">
+      <div className="flex items-center justify-center py-12">
+        <div className="min-w-[400px] grid  gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-3xl font-bold">Registration</h1>
+            <p className="text-balance text-muted-foreground">
+              Enter your info below to register.
             </p>
           </div>
-          <div className="card shrink-0 w-full max-w-sm shadow-2xl">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+
+          <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
             <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
                 </label>
-                <input
+                <Input
                   type="text"
                   placeholder="Name"
                   name="name"
@@ -90,7 +94,7 @@ const Registration = () => {
                 <label className="label">
                   <span className="label-text">Photo URL</span>
                 </label>
-                <input
+                <Input
                   type="text"
                   placeholder="Photo URL"
                   name="photoURL"
@@ -105,7 +109,7 @@ const Registration = () => {
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
-                <input
+                <Input
                   type="email"
                   placeholder="Email"
                   name="email"
@@ -119,7 +123,7 @@ const Registration = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input
+                <Input
                   type="password"
                   placeholder="Password"
                   name="password"
@@ -155,9 +159,19 @@ const Registration = () => {
               </div>
               <p className='text-center'>Already have an account? <Link to='/login' className='text-orange-600'>Login</Link></p>
             </form>
-          </div>
+            <SocialLogin/>          
         </div>
       </div>
+      <div className="hidden bg-muted lg:block">
+        <img
+          src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?t=st=1717914992~exp=1717918592~hmac=e7de97274ec10499693e7aa4b0505bca7f9c6912f8ba90848b8810387217a4ad&w=740"
+          alt="Image"
+          width="1920"
+          height="1080"
+          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
+      </div>
+    </div>
     </>
   );
 };

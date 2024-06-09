@@ -2,7 +2,7 @@ import Loading from "@/components/app_compnents/Common/Loding";
 import DashboardCard from "@/components/app_compnents/Dashboard/DashboardCard";
 import RecentSales from "@/components/app_compnents/Dashboard/RecentSales";
 import Transactions from "@/components/app_compnents/Dashboard/Transactions";
-import useContest from "@/hooks/useContest";
+import useAllContest from "@/hooks/useAllContest";
 import useUser from "@/hooks/useUser";
 import { DollarSign, LucideUsers2, Palette, Target } from "lucide-react";
 
@@ -10,7 +10,7 @@ const Dashboard = () => {
    const {users} = useUser()
    const _users = users.data
    const creators = _users?.filter((user) => user.role === "creator")
-   const {contests} = useContest() 
+   const {contests} = useAllContest() 
    return (
         <div>
         <div className="rounded-xl pb-4 relative bg-no-repeat bg-right bg-contain ">

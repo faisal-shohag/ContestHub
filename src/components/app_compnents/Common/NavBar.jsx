@@ -52,7 +52,7 @@ const NavBar = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/all_contest">All Contest</NavLink>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         {!user ? (
           <>
             <NavLink to="/login">Login</NavLink>

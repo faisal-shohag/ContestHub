@@ -25,7 +25,8 @@ const Payment = () => {
 
 
     return (
-        <div className='section border shadow-xl mt-5 p-5 rounded-xl'>
+        <div className='section border shadow-xl mt-5 p-10 rounded-xl'>
+           
            {
            contest ?  <Elements stripe={stripePromise}>
              <CheckoutForm contest={contest}/>
