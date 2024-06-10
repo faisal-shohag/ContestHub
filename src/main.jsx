@@ -34,6 +34,8 @@ import EditContest from "./routes/Creator/Dashboard/EditContest.jsx";
 import ContestDetails from "./routes/User/ContestDetails.jsx";
 import Payment from "./routes/User/Payment.jsx";
 import Leaderboard from "./routes/User/Leaderboard.jsx";
+import SuccessStories from "./routes/User/SuccessStories.jsx";
+import Benefits from "./routes/User/Benefits.jsx";
 
 const queryClient = new QueryClient()
 
@@ -70,6 +72,14 @@ const router = createBrowserRouter([
       {
         path: 'leaderboard',
         element: <Leaderboard/>
+      },
+      {
+        path: 'success-stories',
+        element: <SuccessStories/>
+      },
+      {
+        path: 'benefits',
+        element: <Benefits/>
       }
     ],
   },
