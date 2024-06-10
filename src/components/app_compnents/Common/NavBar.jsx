@@ -39,12 +39,17 @@ const NavBar = () => {
     <div className="border Nav p-3 shadow-lg flex gap-5 lg:px-[100px]  justify-between items-center">
       <div className="animate-pulse"><img className='h-8 w-8' src='https://i.postimg.cc/XYSGZD9T/logo.png' alt='logo'/></div>
 
+      <div className='lg:block md:block hidden'>
       <div className="flex items-center gap-10">
         <NavLink to="/"><span>Home</span></NavLink>
         <NavLink to="/all_contest"><span>All contests</span></NavLink>
         <NavLink to="/leaderboard"><span>Leaderboard</span></NavLink>
         <NavLink to="/success-stories"><span>Success Stories</span></NavLink>
         <NavLink to="/benefits"><span>Benefits</span></NavLink>
+      </div>
+      </div>
+      <div className='block font-black text-xl lg:hidden md:hidden bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-400  text-transparent bg-clip-text'>
+        ContestHUB
       </div>
       <div className="flex gap-4 items-center">
         {!user ? (
