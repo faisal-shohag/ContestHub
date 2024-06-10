@@ -154,7 +154,7 @@ const CreatorContestTable = () => {
                         <Button disabled><EditIcon className="mr-2 h-4 w-4" /> Edit</Button>
                         <Button disabled variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
                         </> }
-                        <Button className="bg-green-600"><List className="mr-2 h-4 w-4" /> Submissions</Button>
+                        <Link to="/creator-dashboard/subimtted-contest"><Button className="bg-green-600"><List className="mr-2 h-4 w-4" /> Submissions</Button></Link>
                         </div>
                       </div>
                    </TableCell>

@@ -33,24 +33,16 @@ const NavBar = () => {
     .then(res => {
       navigate(`/${res.data.data.role}-dashboard/dashboard`);
     }) 
-
-    // if (role === "admin") {
-    //   navigate("/admin-dashboard/dashboard");
-    // }
-    // if (role === "creator") {
-    //   navigate("/creator-dashboard/dashboard");
-    // } 
-
-
   };
 
   return (
-    <div className="border p-3 shadow-lg flex gap-5 lg:px-[100px]  justify-between items-center">
-      <div className=""><img className='h-8 w-8' src='https://i.postimg.cc/BbW5Mn5y/logo.png' alt='logo'/></div>
+    <div className="border Nav p-3 shadow-lg flex gap-5 lg:px-[100px]  justify-between items-center">
+      <div className="animate-pulse"><img className='h-8 w-8' src='https://i.postimg.cc/XYSGZD9T/logo.png' alt='logo'/></div>
 
-      <div className="flex items-center gap-5">
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/all_contest">All Contest</NavLink>
+      <div className="flex items-center gap-10">
+        <NavLink to="/"><span>Home</span></NavLink>
+        <NavLink to="/all_contest"><span>All contests</span></NavLink>
+        <NavLink to="/leaderboard"><span>Leaderboard</span></NavLink>
       </div>
       <div className="flex gap-4 items-center">
         {!user ? (

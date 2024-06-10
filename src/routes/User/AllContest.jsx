@@ -3,12 +3,14 @@ import ContestCard from "@/components/app_compnents/User/ContestCard";
 import useContest from "@/hooks/useContest";
 import { MoveLeft } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 
 const AllContest = () => {
+  const navigate = useNavigate()
   const { contests } = useContest();
   const _contests = contests.data;
   const [data, setData] = useState(_contests);
@@ -78,10 +80,10 @@ const AllContest = () => {
 
   return (
     <div className="section border shadow-xl mt-5 p-5 rounded-xl min-h-[500px]">
-      <div className="flex border p-3 rounded-xl w-[100px] items-center gap-2 font-bold text-green-600">
+      <div onClick={()=>navigate('/')} className="flex cursor-pointer border p-3 rounded-xl w-[100px] items-center gap-2 font-bold text-green-600">
         <MoveLeft /> Back
       </div>
-      <div className="mt-5 text-2xl font-black">All contests</div>
+      <div className="mt-5 text-2xl font-black mb-5">All contests</div>
 
       <Tabs defaultIndex={tabIndex} onSelect={(index)=>handleSelect(index)}>
     <TabList>

@@ -14,9 +14,7 @@ const DashboardCard = ({ title, icon, num }) => {
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{num}</div>
-        <p className="text-xs text-muted-foreground">
-          +20.1% from last month
-        </p>
+
       </CardContent>
     </Card>
     </div>
@@ -25,7 +23,7 @@ const DashboardCard = ({ title, icon, num }) => {
 DashboardCard.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
-  num: PropTypes.any.isRequired,
+  num: PropTypes.any,
   arrow: PropTypes.string.isRequired,
   cardimg: PropTypes.string.isRequired,
 };

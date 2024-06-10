@@ -74,3 +74,13 @@
       @apply bg-background text-foreground;
     }
   }
+
+
+ .Nav .active::after {
+    content: '';
+    @apply absolute bg-white w-[95%] h-[90%] left-[2.5%] top-[5%] rounded-[20px] text-[#000];
+  }
+
+   .dark .Nav .active::after {
+    @apply bg-gray-950;
+  }

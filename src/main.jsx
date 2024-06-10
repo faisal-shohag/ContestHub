@@ -33,6 +33,7 @@ import UserDashboardHome from "./routes/User/Dashboard/Dashboard.jsx";
 import EditContest from "./routes/Creator/Dashboard/EditContest.jsx";
 import ContestDetails from "./routes/User/ContestDetails.jsx";
 import Payment from "./routes/User/Payment.jsx";
+import Leaderboard from "./routes/User/Leaderboard.jsx";
 
 const queryClient = new QueryClient()
 
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: "all_contest",
-        element: <PrivateRoute><AllContest/></PrivateRoute>,
+        element: <AllContest/>,
       
       },
       {
@@ -65,12 +66,16 @@ const router = createBrowserRouter([
       {
         path: "payment/:id",
         element: <PrivateRoute><Payment/></PrivateRoute>,
+      }, 
+      {
+        path: 'leaderboard',
+        element: <Leaderboard/>
       }
     ],
   },
   {
     path: "admin-dashboard",
-    element: <AdminDashboard/>,
+    element: <PrivateRoute><AdminDashboard/></PrivateRoute>,
     children: [
       {
         path: "dashboard",
@@ -89,7 +94,7 @@ const router = createBrowserRouter([
   },
   {
     path: "creator-dashboard",
-    element:<CreatorDashboard/>,
+    element: <PrivateRoute><CreatorDashboard/></PrivateRoute>,
     children: [
       {
         path: "dashboard",
@@ -116,7 +121,7 @@ const router = createBrowserRouter([
   },
   {
     path: "user-dashboard",
-    element: <UserDashboard/>,
+    element: <PrivateRoute><UserDashboard/></PrivateRoute>,
     children: [
       {
         path: "dashboard",
@@ -133,7 +138,8 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile/>
-      }
+      }, 
+      
     ]
   }
 ]);

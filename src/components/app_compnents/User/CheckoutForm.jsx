@@ -15,6 +15,7 @@ const CheckoutForm = ({contest}) => {
   const [clientSecret, setClientSecret] = useState('')
   const {user} = useAuth()
   const navigate = useNavigate()
+  const [isClick, setIsClick] = useState(false)
 
 
   useEffect(() => {
@@ -23,20 +24,15 @@ const CheckoutForm = ({contest}) => {
             const clientSecret = res.data.clientSecret;
             setClientSecret(clientSecret)
             console.log(clientSecret);
-            // stripe.handleCardPayment(clientSecret).then(paymentRes => {
-            //     console.log(paymentRes);
-            //     if(paymentRes.error){
-            //         toast.error(paymentRes.error.message)
-            //     }else{
-            //         toast.success('Payment Successful')
-            //     }
-            // })
         })
 
   }, [axiosSecure, contest.price])
 
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsClick(true)
 
     if (!stripe || !elements) {
         return;
@@ -79,6 +75,7 @@ const CheckoutForm = ({contest}) => {
 
     if(confirmError){
       toast.error(confirmError.message)
+      setIsClick(false)
     } else {
       const data = {
         contestId: contest._id,
@@ -87,17 +84,20 @@ const CheckoutForm = ({contest}) => {
         creator_email: contest.creator_email,
         paid_at: new Date(),
         isWinner: false,
-        price: parseInt(contest.price)
+        price: parseInt(contest.price),
+        isSubmitted: false,
+        task: "",
+        quickNote: "",
       }
 
       toast.promise(
         axiosSecure.post('/payments', data)
         .then(res => {
           console.log(res.data);
+          setIsClick(false)
           navigate(`/contest-details/${contest._id}/${contest.due}`)
-          
-        })
-      , {
+        }), 
+        {
         loading: 'Payment processing...',
         success: 'Payment successful',
         error: 'Payment failed'
@@ -134,7 +134,7 @@ const CheckoutForm = ({contest}) => {
 
     
         <Button className="btn mt-10 w-full" type="submit" disabled={!stripe || !clientSecret}>
-          Pay ${contest.price}
+        {isClick && <span className="loading loading-spinner text-white"></span> } Pay ${contest.price}
         </Button>
         </div>
       </form>

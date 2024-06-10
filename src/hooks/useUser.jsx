@@ -17,7 +17,7 @@ const useUser = () => {
    // Update user mutation
    const updateUserMutation = useMutation({
     mutationFn: async ({ userId, updateData }) => {
-        const res = await axiosSecure.put(`/users/${userId}`, updateData);
+        const res = await axiosSecure.put(`/user/${userId}`, updateData);
       return res.data;
     },
     onSuccess: () => {

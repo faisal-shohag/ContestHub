@@ -110,7 +110,7 @@ const UsersTable = () => {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem onClick={() => handleUserRole(user._id, user.role)} disabled={user.role === 'admin'}>Make {user.role==="user" ? "creator": "user"}</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleUserRole(user.email, user.role)} disabled={user.role === 'admin'}>Make {user.role==="user" ? "creator": "user"}</DropdownMenuItem>
                               <DropdownMenuItem disabled={user.role === 'admin'}>Delete</DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
