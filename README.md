@@ -1,7 +1,7 @@
 <img src="https://i.postimg.cc/XYSGZD9T/logo.png" alt="ContestHub Logo" width="200"/>
 
 # ContestHUB
-## Stay in the circle but think out of the circle.
+## Create, Participate & Win
 
 Welcome to the [ContestHub](https://taskph12.netlify.app/)-the ultimate platform where innovation meets recognition! ContestHub is a dynamic and user-friendly Project Contest Creation Platform designed to foster creativity, engage communities, and celebrate talent across various domains. Whether you're organizing a design competition, coding challenge, or any other creative contest, ContestHub is your go-to destination for seamless contest creation and efficient winner selection.
 
