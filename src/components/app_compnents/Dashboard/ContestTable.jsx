@@ -34,6 +34,7 @@ import useContest from "@/hooks/useContest";
 import { Description, Dialog, DialogPanel, DialogTitle,  } from '@headlessui/react'
 import { Textarea } from "@/components/ui/textarea";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const ContestTable = () => {
   const [contests, setContests] = useState([]);
@@ -108,6 +109,27 @@ const handleComment = () => {
   setIsOpen(false)
 }
 
+const handleDeleteContest = (id) => {
+  Swal.fire({
+    title: "Do you want delete the contest?",
+    showCancelButton: true,
+    confirmButtonText: "Delete",
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      axiosSecure
+        .delete(`/contest/${id}`)
+        .then((res) => {
+          console.log(res);
+          Swal.fire("Contest deleted!", "", "success");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
+};
+
 
 
 
@@ -178,7 +200,7 @@ const handleComment = () => {
                          
                          <DropdownMenuItem onClick={() =>{ setIsOpen(true); setId(contest._id)}}>Comment</DropdownMenuItem>
                          <DropdownMenuItem onClick={() => handleApprove(contest._id, 'approved')}>{contest.status == 'approved' ? "Decline" : "Confirm"}</DropdownMenuItem>
-                         <DropdownMenuItem>Delete</DropdownMenuItem>
+                         <DropdownMenuItem onClick={()=>handleDeleteContest(contest._id)}>Delete</DropdownMenuItem>
                          
                        </DropdownMenuContent>
                      </DropdownMenu>
@@ -187,7 +209,7 @@ const handleComment = () => {
                         <div className="flex items-center gap-2">
                         <Button onClick={() =>{ setIsOpen(true); setId(contest._id)}} className=""><MessageSquareMore className="mr-2 h-4 w-4" /> Comment</Button>
                         <Button onClick={() => handleApprove(contest._id, contest.status == 'approved' ? "pending" : "approved")} variant="" className="bg-green-500"><Check className="mr-2 h-4 w-4" />{contest.status == 'approved' ? "Decline" : "Confirm"}</Button>
-                        <Button variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
+                        <Button onClick={()=>handleDeleteContest(contest._id)} variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
                         </div>
                       </div>
                    </TableCell>

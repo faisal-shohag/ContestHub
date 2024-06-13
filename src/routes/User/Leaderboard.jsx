@@ -20,7 +20,7 @@ const Leaderboard = () => {
 
 
     return (
-        <div className="m-10 p-10 shadow-2xl rounded-lg">
+        <div className="lg:m-10 lg:p-10 md:m-10 md:p-10 m-5 p-3 shadow-2xl rounded-lg">
         <div>
           <div
             style={{
@@ -44,7 +44,7 @@ const Leaderboard = () => {
                   </div>
                 </div>
                 <img className="rounded-full h-[100px]" src={top[1].photoURL} />
-                <div className="font-bold text-xl">{top[1].name}</div>
+                <div className="font-bold">{top[1].name}</div>
               </div>
   
   
@@ -55,7 +55,7 @@ const Leaderboard = () => {
                   </div>
                 </div>
                 <img className="rounded-full h-[150px]" src={top[0].photoURL} />
-                <div className="font-bold text-xl">{top[0].name}</div>
+                <div className="font-bold">{top[0].name}</div>
               </div>
   
   
@@ -69,7 +69,7 @@ const Leaderboard = () => {
                   className="rounded-full h-[100px] w-[100px]"
                   src={top[2].photoURL}
                 />
-                <div className="font-bold text-xl">{top[2].name}</div>
+                <div className="font-bold">{top[2].name}</div>
               </div>
             </div>
   

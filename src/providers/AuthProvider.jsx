@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { createContext } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import { app } from "@/firebase/firebase.config";
+import useAxiosSecure from '@/hooks/useAxiosSecure';
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
+  const axiosSecure = useAxiosSecure();
   
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -58,11 +60,18 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if(currentUser) {
             //get token and store in client
+            axiosSecure.post('/jwt', {email: currentUser.email})
+            .then(data => {
+              console.log('found token!')
+                localStorage.setItem('access-token', data.data.token);
+            })
             
       } else {
           //
       }
-      setLoading(false);
+      setTimeout(()=> {
+        setLoading(false)
+      }, 3000)
     });
     return () => unsubscribe();
   }, [auth])

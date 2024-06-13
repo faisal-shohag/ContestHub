@@ -2,7 +2,6 @@ import {
   Home,
   LogOut,
   Menu,
-  Package2,
   Target,
   UserRoundCog,
 } from "lucide-react"
@@ -29,9 +28,15 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Link, NavLink, Outlet } from "react-router-dom"
 import useAuth from "@/hooks/useAuth"
 import { ModeToggle } from "@/components/app_compnents/Theme/ToggleTheme"
+import useUserByEmail from "@/hooks/useUserByEmail"
+
+import LogoLoding from "@/components/app_compnents/Common/LogoLoding"
+import AccessWindow from "@/components/app_compnents/Common/AccessWindow"
 
 const AdminDashboard = () => {
     const {user, logOut } = useAuth()
+    const {me}  = useUserByEmail(user?.email)
+
 
     const handleLogOut = () => {
         logOut()
@@ -39,13 +44,17 @@ const AdminDashboard = () => {
           .catch((error) => console.log(error));
       };
 
+      
+
   return (
+    <>{ me.data ? 
+      <> { me.data.role === "admin" ? 
     <div className="grid  w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
             <Link to="/" className="flex items-center gap-2 font-semibold grayscale hover:grayscale-0">
-              <img className="h-6 w-6" src="https://i.postimg.cc/BbW5Mn5y/logo.png" alt="logo"/>
+              <img className="h-6 w-6" src="https://i.postimg.cc/XYSGZD9T/logo.png" alt="logo"/>
               <span className="">ContestHUB</span>
             </Link>
           </div>
@@ -112,7 +121,7 @@ const AdminDashboard = () => {
                   href=""
                   className="flex items-center gap-2 text-lg font-semibold"
                 >
-                  <Package2 className="h-6 w-6" />
+                   <img className="h-6" src="https://i.postimg.cc/XYSGZD9T/logo.png"/>
                   <span className="">Admin Dashboard</span>
                 </Link>
                 <NavLink
@@ -181,7 +190,11 @@ const AdminDashboard = () => {
           <Outlet/>
         </main>
       </div>
-    </div>
+    </div> : <AccessWindow type="You are not the Admin!" role={me.data.role}/>
+            }
+      </>
+      : <LogoLoding/>
+      }</>
   )
 }
 

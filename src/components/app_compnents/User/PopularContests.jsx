@@ -1,6 +1,8 @@
 import usePopularContest from "@/hooks/usePopularContest";
 import ContestCard from "./ContestCard";
 import Loading from "../Common/Loding";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const PopularContests = () => {
     const {contests} = usePopularContest()
@@ -23,6 +25,10 @@ const PopularContests = () => {
           <Loading />
         )}
       </div>
+
+     <div className="flex justify-center">
+    <Link to="/all_contest"> <Button className="mt-10 w-[200px]">Show All</Button></Link>
+     </div>
 
         </div>
     );

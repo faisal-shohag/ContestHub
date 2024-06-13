@@ -22,13 +22,16 @@ const Footer = () => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/assignments">All Contests</Link>
+                <Link to="/all_cotests">All Contests</Link>
               </li>
               <li>
-                <Link to="/create-assignment">Dashboard</Link>
+                <Link to="/leaderboard">Leaderboard</Link>
               </li>
               <li>
-                <Link to="/pending-assignment">Other</Link>
+                <Link to="/success-stories">Success Stories</Link>
+              </li>
+              <li>
+                <Link to="/benefits">Benefits</Link>
               </li>
             </ul>
           </div>
@@ -37,7 +40,7 @@ const Footer = () => {
             <div className="font-medium text-indigo-500">Service</div>
             <ul className="text-sm">
               <li>
-                <Link to="/">Agents</Link>
+                <Link to="/">Become Creator</Link>
               </li>
               <li>
                 <Link to="/">Contact us</Link>

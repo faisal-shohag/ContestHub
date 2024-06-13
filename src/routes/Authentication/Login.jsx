@@ -1,59 +1,44 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '@/providers/AuthProvider';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import SocialLogin from '@/components/app_compnents/Common/SocialLogin';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const Login = () => {
-  const captchaRef = useRef(null)
+
   const { register, handleSubmit } = useForm()
   const {signIn} = useContext(AuthContext)
-  const [matched, setMatched] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/';
  
     const onSubmit = data => {
-       if(!matched){
-        toast.error('Captcha does not matched!')
-        return;
-       }
-        console.log(data);
+        // console.log(data);
         signIn(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 toast.success('Successfully Logged In!')
                 navigate(from, { replace: true })
+                
+                
             })
             .catch(error => {
                 console.log(error);
                 toast.error(error.message)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
             })
     }
 
 
-    const handleValidateCaptcha = () => {
-        const user_captcha_value = captchaRef.current.value
-        if (validateCaptcha(user_captcha_value)) {
-            setMatched(true);
-            console.log('Captcha Matched');
-        }
-        else {
-            console.log('Captcha Does Not Matched');
-            setMatched(false);
-        }
-    }
 
 
-    useEffect(() => {
-        loadCaptchaEnginge(6);
-    }, [])
   return (
     <>
     <Helmet>
@@ -63,6 +48,7 @@ const Login = () => {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid  gap-6">
           <div className="grid gap-2 text-center">
+            <div className='flex justify-center'><img className='h-[70px]' src='https://i.postimg.cc/XYSGZD9T/logo.png'/></div>
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-balance text-muted-foreground">
               Enter your email below to login to your account
@@ -96,23 +82,8 @@ const Login = () => {
                   required
                 />
               </div>
-
-              <div className="form-control">
-                <label className="label">
-                  <LoadCanvasTemplate />
-                </label>
-                <input
-                ref={captchaRef}
-                  type="text"
-                  placeholder="Captcha"
-                  name="captcha"
-                  className="input input-bordered"
-                  required
-                />
-                {/* <button onClick={handleValidateCaptcha} className="btn btn-outline btn-primary btn-xs mt-2">Verify</button> */}
-              </div>
               <div className="form-control mt-2">
-                <Button onClick={handleValidateCaptcha} className="btn bg-blue-700 btn-primary">Login</Button>
+                <Button className="btn bg-blue-700 btn-primary">Login</Button>
               </div>
               <div className="text-center text-sm">
             Don&apos;t have an account?{" "}

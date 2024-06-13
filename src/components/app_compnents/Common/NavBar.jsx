@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LayoutDashboard, LogOutIcon } from "lucide-react";
 import useAxiosSecure from '@/hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -24,6 +25,11 @@ const NavBar = () => {
     logOut()
       .then()
       .catch((error) => console.log(error));
+
+      axiosSecure.post('/logout', {email: user?.email})
+      .then(() => {
+        toast.success("Logout!")
+      })
   };
 
   const axiosSecure = useAxiosSecure()

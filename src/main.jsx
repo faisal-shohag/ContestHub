@@ -36,6 +36,7 @@ import Payment from "./routes/User/Payment.jsx";
 import Leaderboard from "./routes/User/Leaderboard.jsx";
 import SuccessStories from "./routes/User/SuccessStories.jsx";
 import Benefits from "./routes/User/Benefits.jsx";
+import NotFound from "./routes/NotFound.jsx";
 
 const queryClient = new QueryClient()
 
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFound/>,
     children: [
       {
         path: "/",

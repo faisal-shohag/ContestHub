@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import Loading from "../Common/Loding";
+import Swal from "sweetalert2";
 
 const CreatorContestTable = () => {
   const [contests, setContests] = useState([]);
@@ -60,6 +61,28 @@ const CreatorContestTable = () => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+  };
+
+
+  const handleDeleteContest = (id) => {
+    Swal.fire({
+      title: "Do you want delete the contest?",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/contest/${id}`)
+          .then((res) => {
+            console.log(res);
+            Swal.fire("Contest deleted!", "", "success");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
   };
 
 
@@ -138,7 +161,7 @@ const CreatorContestTable = () => {
                         {
                           contest.status === "pending" ?
                           <> <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><DropdownMenuItem>Edit</DropdownMenuItem></Link>
-                         <DropdownMenuItem>Delete</DropdownMenuItem></> :
+                         <DropdownMenuItem onClick={()=>handleDeleteContest(contest._id)}>Delete</DropdownMenuItem></> :
                           <><DropdownMenuItem disabled>Edit</DropdownMenuItem>
                           <DropdownMenuItem disabled>Delete</DropdownMenuItem></>
                         }
@@ -149,7 +172,7 @@ const CreatorContestTable = () => {
                         <div className="flex items-center gap-2">
                         {contest.status === "pending" ? <>
                         <Link to={`/creator-dashboard/edit-contest/${contest._id}`}><Button className=""><EditIcon className="mr-2 h-4 w-4" /> Edit</Button></Link>
-                        <Button variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
+                        <Button onClick={()=>handleDeleteContest(contest._id)} variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>
                         </>: <>
                         <Button disabled><EditIcon className="mr-2 h-4 w-4" /> Edit</Button>
                         <Button disabled variant="destructive" className=""><Trash className="mr-2 h-4 w-4" /> Delete</Button>

@@ -3,13 +3,16 @@ import SocialLogin from '@/components/app_compnents/Common/SocialLogin';
 import { Input } from '@/components/ui/input';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import { AuthContext } from '@/providers/AuthProvider';
-import { useContext} from 'react';
+import { useContext, useEffect, useRef, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 const Registration = () => {
+  const captchaRef = useRef(null)
+  const [matched, setMatched] = useState(false)
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
   const {createUser, updateUserProfile} = useContext(AuthContext)
   const navigate = useNavigate()
@@ -17,7 +20,10 @@ const Registration = () => {
 
 
     const onSubmit = data => {
-        console.log(data);
+      if(!matched){
+        toast.error('Captcha does not matched!')
+        return;
+       }
 
         createUser(data.email, data.password)
             .then(result => {
@@ -29,29 +35,49 @@ const Registration = () => {
                 axiosSecure.post('/user', {...data, role: 'user', created_at: new Date()})
                 .then(res => {
                     console.log(res.data);
+                    
                 })
                 .catch(error => {
                     console.log(error);
                     // toast.error(error.message)
+                    setTimeout(() => {
+                      window.location.reload()
+                  }, 1500)
                 })
 
-                updateUserProfile(data.name, data.photoURL)
-                .then(() => {
-                  // toast.success('Name and Photo updated!')
-                    navigate('/')
+                updateUserProfile({displayName: data.name, photoURL: data.photoURL})
+                
+                navigate('/')
                     reset();
-                })
-                .catch(error => {
-                    console.log(error);
-                    toast.error(error.message)
-                })
+                
             })
             .catch(error => {
                 console.log(error);
                 toast.error(error.message)
+                setTimeout(() => {
+                  window.location.reload()
+              }, 1500)
           })
 
     }
+
+
+    const handleValidateCaptcha = () => {
+      const user_captcha_value = captchaRef.current.value
+      if (validateCaptcha(user_captcha_value)) {
+          setMatched(true);
+          console.log('Captcha Matched');
+      }
+      else {
+          console.log('Captcha Does Not Matched');
+          setMatched(false);
+      }
+  }
+
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+}, [])
 
 
 
@@ -68,6 +94,8 @@ const Registration = () => {
       <div className="flex items-center justify-center py-12">
         <div className="min-w-[400px] grid  gap-6">
           <div className="grid gap-2 text-center">
+          <div className='flex justify-center'><img className='h-[70px]' src='https://i.postimg.cc/XYSGZD9T/logo.png'/></div>
+
             <h1 className="text-3xl font-bold">Registration</h1>
             <p className="text-balance text-muted-foreground">
               Enter your info below to register.
@@ -140,22 +168,24 @@ const Registration = () => {
                 </div>
               </div>
 
-              {/* <div className="form-control">
+             
+
+<div className="form-control">
                 <label className="label">
                   <LoadCanvasTemplate />
                 </label>
-                <input
+                <Input
+                ref={captchaRef}
                   type="text"
-                  ref={captchaRef}
                   placeholder="Captcha"
                   name="captcha"
                   className="input input-bordered"
                   required
                 />
-                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-primary btn-xs mt-2">Verify</button>
-              </div> */}
+                {/* <button onClick={handleValidateCaptcha} className="btn btn-outline btn-primary btn-xs mt-2">Verify</button> */}
+              </div>
               <div className="form-control mt-2">
-                <button  className="btn btn-primary">Sign Up</button>
+                <button onClick={handleValidateCaptcha}   className="btn btn-primary">Sign Up</button>
               </div>
               <p className='text-center'>Already have an account? <Link to='/login' className='text-orange-600'>Login</Link></p>
             </form>

@@ -1,16 +1,11 @@
 import {
-    CheckCircle,
     Crown,
     Home,
     LogOut,
     Menu,
-    Package2,
-    Palette,
-    PlusCircle,
     Target,
     UserCircle,
     UserCircle2,
-    UserRoundCog,
   } from "lucide-react"
   
   import { Button } from "@/components/ui/button"
@@ -34,9 +29,13 @@ import {
   import { Link, NavLink, Outlet } from "react-router-dom"
   import useAuth from "@/hooks/useAuth"
   import { ModeToggle } from "@/components/app_compnents/Theme/ToggleTheme"
+import useUserByEmail from "@/hooks/useUserByEmail"
+import AccessWindow from "@/components/app_compnents/Common/AccessWindow"
+import LogoLoding from "@/components/app_compnents/Common/LogoLoding"
   
   const UserDashboard = () => {
       const {user, logOut } = useAuth()
+      const {me}  = useUserByEmail(user?.email)
   
       const handleLogOut = () => {
           logOut()
@@ -45,12 +44,14 @@ import {
         };
   
     return (
+      <>{ me.data ? 
+        <> { me.data.role === "user" ? 
       <div className="grid  w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
         <div className="hidden border-r bg-muted/40 md:block">
           <div className="flex h-full max-h-screen flex-col gap-2">
-            <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+            <div className="flex py-[15.5px] items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link to="/" className="flex items-center gap-2 font-semibold grayscale hover:grayscale-0">
-                <img className="h-6 w-6" src="https://i.postimg.cc/BbW5Mn5y/logo.png" alt="logo"/>
+                <img className="h-6 w-6" src="https://i.postimg.cc/XYSGZD9T/logo.png" alt="logo"/>
                 <span className="">ContestHUB</span>
               </Link>
             </div>
@@ -122,10 +123,10 @@ import {
                 <nav className="grid gap-2 text-lg font-medium">
                   <Link
                     href=""
-                    className="flex items-center gap-2 text-lg font-semibold"
+                    className="flex  items-center gap-2 text-lg font-semibold"
                   >
-                    <Package2 className="h-6 w-6" />
-                    <span className="">Admin Dashboard</span>
+                    <img className="h-6" src="https://i.postimg.cc/XYSGZD9T/logo.png"/>
+                    <span className="">User Dashboard</span>
                   </Link>
                   <NavLink
                   to="dashboard"
@@ -135,18 +136,25 @@ import {
                   Dashboard
                 </NavLink>
                 <NavLink
-                  to="manage-user"
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
-                >
-                  <UserRoundCog className="h-4 w-4" />
-                  Manage User
-                </NavLink>
-                <NavLink
-                  to="manage-contest"
+                  to="my-contests"
                   className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
                 >
                   <Target className="h-4 w-4" />
-                  Manage Contests
+                  My Contests
+                </NavLink>
+                <NavLink
+                  to="my-winning-contest"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
+                >
+                  <Crown className="h-4 w-4" />
+                  Winning Contests
+                </NavLink>
+                <NavLink
+                  to="profile"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all"
+                >
+                  <UserCircle className="h-4 w-4" />
+                  Profile
                 </NavLink>
                 </nav>
                 <div className="mt-auto">
@@ -168,7 +176,7 @@ import {
               </SheetContent>
             </Sheet>
   
-            <div className="w-full flex-1">
+            <div className="w-full">
               <div className="font-bold flex items-center gap-2"> <UserCircle2/> User Dashboard</div>
             </div>
             <div className="w-full flex-1"></div>
@@ -193,7 +201,11 @@ import {
             <Outlet/>
           </main>
         </div>
-      </div>
+      </div>: <AccessWindow type="You don&apos;t have access to user dashboard!" role={me.data.role}/>
+            }
+      </>
+      : <LogoLoding/>
+      }</>
     )
   }
   
